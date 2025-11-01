@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    box-sizing: border-box;
+    scroll-behavior: unset !important;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: clamp(14px, 14px + 6 * ((100vw - 360px) / 2200), 20px);
+    color: var(--absolute-white);
+    background-color: var(--absolute-black) !important;
+    line-height: 1;
+    -ms-overflow-style: none;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+img {
+    max-width: 100%;
+}
+
+textarea,
+input {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+
+a {
+    display: inline-block;
+    font-weight: 400;
+    color: var(--absolute-white);
+    text-decoration: none;
+    transition: all 0.3s linear;
+    cursor: pointer;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 400;
+    font-size: clamp(30px, 30px + 55 * ((100vw - 360px) / 2200), 85px);
+}
+
+p {
+    font-weight: 400;
+}
+
+button {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    text-align: unset;
+    cursor: pointer;
+}
+
+.btn {
+    &:hover {
+        background-color: var(--button-hover) !important;
+    }
+
+    &:active {
+        background-color: var(--absolute-black);
+    }
+
+    &:focus-visible {
+        border: 1px solid var(--orange);
+        outline: unset;
+        box-shadow: unset;
+    }
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 calc(var(--container-offset)) 0 var(--container-offset);
+    max-width: var(--container-width);
+    position: relative;
+}
+
+.list__reset {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.paragraph-reset p {
+    margin: 0;
+}
+
+.sectionTitle {
+    display: flex;
+    flex-direction: column;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -0.05em;
+
+    span {
+        display: block;
+        font-weight: 400;
+        font-size: clamp(30px, 30px + 55 * ((100vw - 360px) / 2200), 85px);
+        letter-spacing: -0.05em;
+    }
+}
+
+.text {
+    line-height: 140%;
+    color: var(--absolute-white);
+}

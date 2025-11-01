@@ -1,0 +1,35 @@
+.about {
+    position: relative;
+    height: 100vh;
+    background-color: var(--dark);
+    padding: 100px 0;
+
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .textWrapper {
+        display: flex;
+        flex-direction: column;
+
+
+
+        .iconWrapper {
+            display: flex;
+            
+            &:last-child {
+                justify-content: flex-end;
+            }
+
+            svg {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    }
+
+}

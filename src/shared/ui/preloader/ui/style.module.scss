@@ -1,0 +1,33 @@
+.introduction {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 9999;
+    background-color: var(--absolute-black);
+    
+
+    svg {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: calc(100% + 300px);
+
+        path {
+            fill: var(--absolute-black);
+        }
+    }
+
+    p {
+        display: flex;
+        color: white;
+        font-size: 85px;
+        align-items: center;
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+        user-select: none;
+    }
+}
