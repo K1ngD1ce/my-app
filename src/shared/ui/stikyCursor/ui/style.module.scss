@@ -4,6 +4,20 @@
     height: 15px;
     background-color: var(--absolute-white);
     border-radius: 50%;
-    z-index: 1000;
+    z-index: 500;
     pointer-events: none;
+    transition: opacity .3s ease-in-out;
+
+    &.hidden {
+        opacity: 0;
+    }
+
+    &.pointer {
+        mix-blend-mode: exclusion;
+    }
+
+
+    &.inverse {
+        mix-blend-mode: exclusion;
+    }
 }

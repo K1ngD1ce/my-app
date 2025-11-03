@@ -15,6 +15,8 @@ interface CursorProps {
 export default function Cursor({ stickyElement }: CursorProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isLinkHovered, setIsLinkHovered] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const [isInverse, setIsInverse] = useState(false);
   const cursor = useRef(null);
   const cursorSize = isHovered ? 60 : isLinkHovered ? 30 : 10;
 
@@ -42,6 +44,20 @@ export default function Cursor({ stickyElement }: CursorProps) {
 
   const manageMouseMove = (e) => {
     const { clientX, clientY } = e;
+
+    const isOutside =
+      clientX <= 0 ||
+      clientY <= 0 ||
+      clientX >= window.innerWidth ||
+      clientY >= window.innerHeight;
+
+    setIsHidden(isOutside);
+
+    const element = document.elementFromPoint(clientX, clientY);
+    const cursorAttr = element
+      ?.closest("[data-cursor]")
+      ?.getAttribute("data-cursor");
+    setIsInverse(cursorAttr === "inverse");
 
     if (!stickyElement.current) {
       mouse.x.set(clientX - cursorSize / 2);
@@ -105,6 +121,14 @@ export default function Cursor({ stickyElement }: CursorProps) {
     setIsLinkHovered(false);
   };
 
+  const handleMouseEnter = () => {
+    setIsHidden(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHidden(true);
+  };
+
   useEffect(() => {
     const links = document.querySelectorAll('a, button, [role="button"]');
 
@@ -118,6 +142,8 @@ export default function Cursor({ stickyElement }: CursorProps) {
       stickyElement.current.addEventListener("mouseleave", manageMouseLeave);
     }
 
+    document.addEventListener("mouseenter", handleMouseEnter);
+    document.addEventListener("mouseleave", handleMouseLeave);
     window.addEventListener("mousemove", manageMouseMove);
 
     return () => {
@@ -136,7 +162,8 @@ export default function Cursor({ stickyElement }: CursorProps) {
           manageMouseLeave
         );
       }
-
+      document.removeEventListener("mouseenter", handleMouseEnter);
+      document.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("mousemove", manageMouseMove);
     };
   }, [isHovered, isLinkHovered]);
@@ -144,6 +171,15 @@ export default function Cursor({ stickyElement }: CursorProps) {
   const template = ({ rotate, scaleX, scaleY }) => {
     return `rotate(${rotate}) scaleX(${scaleX}) scaleY(${scaleY})`;
   };
+
+  const cursorClasses = [
+    cls.cursor,
+    isHidden && cls.hidden,
+    isLinkHovered && cls.pointer,
+    isInverse && cls.inverse,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <motion.div
@@ -158,7 +194,7 @@ export default function Cursor({ stickyElement }: CursorProps) {
         width: cursorSize,
         height: cursorSize,
       }}
-      className={cls.cursor}
+      className={cursorClasses}
       ref={cursor}
     ></motion.div>
   );

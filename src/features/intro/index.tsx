@@ -7,11 +7,7 @@ export default function Intro() {
 
   return (
     <section className={cls.intro}>
-      <div
-        data-scroll
-        data-scroll-speed="0.7"
-        className={`container ${cls.container}`}
-      >
+      <div className={`container ${cls.container}`}>
         <div className={`textWrapper ${cls.textWrapper}`}>
           {!isLoading && (
             <h2 className={`sectionTitle ${cls.sectionTitle}`}>
@@ -29,9 +25,7 @@ export default function Intro() {
           )}
         </div>
       </div>
-      <div
-        className={cls.invitation}
-      >{`{ Scroll down to explore }`}</div>
+      <div className={cls.invitation}>{`{ Scroll down to explore }`}</div>
     </section>
   );
 }

@@ -15,20 +15,20 @@ const Header = forwardRef(function Index(
   return (
     <>
       <header className={cls.header}>
-        <div className={`container ${cls.container} `}>
-          <Link  className={cls.logo} href="/">
+        <div className={`container ${cls.container}`}>
+          <Link className={cls.logo} href="/">
             <Logo width="110" height="40" />
           </Link>
 
           <Magnetic className={`magneticBurgerBtn`}>
-            <div
+            <button
               onClick={() => {
                 setIsActive((prev) => !prev);
               }}
               className={`${cls.burger} ${isActive ? cls.burgerActive : ""}`}
             >
               <div ref={ref} className={cls.bounds}></div>
-            </div>
+            </button>
           </Magnetic>
         </div>
       </header>

@@ -20,8 +20,8 @@ export default function NavBurger() {
       href: "#work",
     },
     {
-      title: "Contact",
-      href: "#contact",
+      title: "Contacts",
+      href: "#contacts",
     },
   ];
 
@@ -47,8 +47,9 @@ export default function NavBurger() {
       exit="exit"
       initial="initial"
       className={cls.menu}
+      
     >
-      <div className={cls.body}>
+      <div className={cls.body} data-cursor="inverse">
         <div className={cls.nav}>
           {navItems.map((item, index) => {
             return (
@@ -63,7 +64,7 @@ export default function NavBurger() {
             {socialItemsNet.map((item, index) => {
               return (
                 <li key={`${item.title}-${index}`}>
-                  <a href={item.href}>{item.title}</a>
+                  <a href={item.href} target="_blank">{item.title}</a>
                 </li>
               );
             })}

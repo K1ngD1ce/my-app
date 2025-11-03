@@ -3,8 +3,8 @@
     top: 0;
     right: 0;
     height: 100vh;
-    color: var(--absolute-white);
-    z-index: 999;
+    z-index: 100;
+
 
 
     .body {
@@ -14,22 +14,20 @@
         display: flex;
         justify-content: space-between;
         flex-direction: column;
-        background-color: var(--orange);
-        color: var(--absolute-white);
+        background-color: var(--absolute-white);
 
     }
 
     .footer {
         ul {
-            position: relative;
             display: flex;
             gap: 10px;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
 
             a {
                 font-size: 18px;
+                color: var(--absolute-black);
             }
         }
     }
@@ -39,7 +37,6 @@
         flex-direction: column;
         justify-content: space-between;
         font-size: 56px;
-        gap: 12px;
         margin-top: 80px;
     }
 

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import SmoothLink from "@/shared/ui/smoothLink";
 import cls from "./style.module.scss";
 import { motion } from "framer-motion";
 import { slide } from "../../lib/animate";
@@ -23,7 +23,7 @@ export default function LinkItem({ data }: LinkItemProps) {
       initial="initial"
       className={cls.link}
     >
-      <Link href={data.href}>{data.title}</Link>
+      <SmoothLink href={data.href}>{data.title}</SmoothLink>
     </motion.div>
   );
 }

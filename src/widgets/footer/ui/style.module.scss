@@ -1,4 +1,41 @@
 .footer {
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 50px 0;
     background-color: var(--dark);
+
+    .footerBottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+    }
+
+    .footerTop {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .mail {
+        position: relative;
+        font-size: clamp(30px, 30px + 55 * ((100vw - 360px) / 2200), 85px);
+        color: var(--absolute-white);
+
+        .clickToCopy {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 11px;
+            width: fit-content;
+            height: 50px;
+            bottom: 100%;
+            left:40%;
+            font-size: clamp(18px, 18px + 4 * ((100vw - 360px) / 2200), 22px);
+            background-color: var(--absolute-white);
+            color: var(--absolute-black);
+            border-radius: 5px;
+        }
+    }
 }
