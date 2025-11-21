@@ -14,7 +14,7 @@ export default function Work() {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    setTimeout(() => {
+    const setupAnimation = () => {
       const cards = document.querySelectorAll(`.${cls.card}`);
 
       if (!cards.length) {
@@ -27,7 +27,20 @@ export default function Work() {
       const gap = 32;
       const totalCardsWidth = (cardWidth + gap) * cards.length;
       const visibleWidth = cardsWrapperRef.current!.offsetWidth;
-      const xMovement = totalCardsWidth - visibleWidth - cardWidth * 0;
+      
+      // Для мобильных уменьшаем движение, т.к. карточки шире
+      const isMobile = window.innerWidth <= 1200;
+      const xMovement = isMobile 
+        ? totalCardsWidth - visibleWidth
+        : totalCardsWidth - visibleWidth - cardWidth * 0;
+
+      // Убиваем предыдущий ScrollTrigger
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.trigger === containerRef.current) {
+          trigger.kill();
+        }
+      });
+
       gsap.to(cardsWrapperRef.current, {
         x: () => -xMovement,
         ease: "none",
@@ -37,13 +50,28 @@ export default function Work() {
           end: () => `+=${xMovement}`,
           pin: true,
           scrub: 1,
+          invalidateOnRefresh: true,
         },
       });
-    }, 100);
+    };
+
+    setTimeout(setupAnimation, 100);
+
+    // Обновляем анимацию при ресайзе
+    const handleResize = () => {
+      setTimeout(setupAnimation, 100);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <section id="work" className={cls.work} ref={containerRef}>
+    <section
+      id="work"
+      className={cls.work}
+      ref={containerRef}
+    >
       <div className={`container ${cls.container}`}>
         <div className={cls.titleWrapper}>
           <h2 className={cls.sectionTitle}>

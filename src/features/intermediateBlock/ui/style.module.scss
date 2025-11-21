@@ -1,0 +1,39 @@
+.intermediateBlock {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 100vh;
+    clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0 100%);
+
+    img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    h2 {
+        position: relative;
+        display: flex;
+        align-items: center;
+        color: white;
+        z-index: 2;
+
+        span {
+            mix-blend-mode: difference;
+        }
+
+        .lastWord {
+            mix-blend-mode: unset;
+            color: var(--orange);
+        }
+    }
+
+    @media (max-width: 1200px) {
+        h2 {
+            flex-direction: column;
+        }
+    }
+}

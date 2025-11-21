@@ -17,16 +17,40 @@
         flex-wrap: nowrap;
         align-items: center;
         justify-content: start;
+        gap: 32px; 
     }
 
     .card {
         height: 100%;
-        flex: 1 0 50%;
-        margin-right: 50px;
+        flex: 1 0 50%; 
         background-color: var(--orange);
-        
-        &:last-child {
-            margin-right: 0;
+
+        margin-right: 0;
+
+        @media (max-width: 1200px) {
+            flex: 1 0 100%;
         }
+    }
+
+    @media (max-width: 1920px) {
+        padding: 80px 0;
+    }
+
+    @media (max-width: 1440px) {
+        .cardsWrapper {
+            gap: 30px;
+        }
+    }
+
+    @media (max-width: 1200px) {
+        padding: 60px 0;
+
+        .container {
+            gap: 35px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        padding: 35px 0;
     }
 }

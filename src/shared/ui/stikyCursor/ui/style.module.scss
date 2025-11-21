@@ -20,4 +20,8 @@
     &.inverse {
         mix-blend-mode: exclusion;
     }
+
+    @media (max-width: 992px) {
+        display: none;
+    }
 }

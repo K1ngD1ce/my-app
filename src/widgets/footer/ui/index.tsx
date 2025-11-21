@@ -1,10 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import Link from "next/link";
 import cls from "./style.module.scss";
 import AnimatedText from "@/shared/ui/animatedText/AnimatedText";
 import Magnetic from "@/shared/ui/magnetic";
 import SmoothLink from "@/shared/ui/smoothLink";
+import Marquee from "@/shared/ui/marquee/ui";
 export default function Footer() {
   const [isHovered, setIsHovered] = useState(false);
   const [copied, setCopied] = useState<boolean>(false);
@@ -27,7 +27,7 @@ export default function Footer() {
 
   return (
     <footer className={cls.footer} id="contacts">
-      <div className={`container ${cls.container}`}>
+      <div className={`container`}>
         <div className={cls.footerTop}>
           <h2 className="sectionTitle">
             <AnimatedText text="Work with me" />
@@ -55,7 +55,7 @@ export default function Footer() {
           </button>
         </div>
       </div>
-      <div className={cls.carousel}>Бегущая строка </div>
+      <Marquee text="Thanks for watching"/>
       <div className="container">
         <div className={cls.footerBottom}>
           <span>All rights reserved &copy; MThor </span>

@@ -5,6 +5,7 @@ import Curve from "./curve";
 import { motion } from "framer-motion";
 import { menuSlide } from "../lib/animate";
 import Magnetic from "@/shared/ui/magnetic/index";
+
 export default function NavBurger() {
   const navItems = [
     {

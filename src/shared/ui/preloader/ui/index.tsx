@@ -62,9 +62,9 @@ export default function Preloader() {
     >
       {dimension.width > 0 && (
         <>
-          <motion.p variants={opacity} initial="initial" animate="enter">
+          <motion.h2 variants={opacity} initial="initial" animate="enter">
             {words[index]}
-          </motion.p>
+          </motion.h2>
           <svg>
             <motion.path
               variants={curve}

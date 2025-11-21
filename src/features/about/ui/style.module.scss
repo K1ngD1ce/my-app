@@ -3,6 +3,7 @@
     height: 100vh;
     background-color: var(--dark);
     padding: 100px 0;
+    z-index: 2;
 
 
     .container {
@@ -20,16 +21,21 @@
 
         .iconWrapper {
             display: flex;
-            
+
             &:last-child {
                 justify-content: flex-end;
             }
 
             svg {
-                width: 200px;
-                height: 200px;
+                width: clamp(100px, 100px + 100 * ((100vw - 375px) / 2200), 200px);
+                height: clamp(100px, 100px + 100 * ((100vw - 375px) / 2200), 200px);
             }
         }
     }
 
+    @media (max-width: 1200px) {
+        .textWrapper {
+            gap: 35px;
+        }
+    }
 }

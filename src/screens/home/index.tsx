@@ -1,4 +1,5 @@
 "use client";
+
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
@@ -10,7 +11,8 @@ import Intro from "@/features/intro";
 import Cursor from "@/shared/ui/stikyCursor/ui";
 import About from "@/features/about/ui";
 import Work from "@/features/work/ui";
-
+import IntermediateBlock from "@/features/intermediateBlock/ui";
+import TechStack from "@/features/techStack/ui";
 export default function HomePage() {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((state) => state.preloader.isLoading);
@@ -43,7 +45,9 @@ export default function HomePage() {
       <main>
         <Intro />
         <About />
+        <IntermediateBlock />
         <Work />
+        {/* <TechStack /> */}
       </main>
       <Footer />
     </>
