@@ -5,18 +5,24 @@ import { motion, Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useAppSelector } from "@/app/store/hooks";
 import { useState, useCallback } from "react";
+import { useGetAboutContentQuery } from "@/app/store/mockApi";
+
+export interface AboutDataType {
+  description: string;
+}
 
 export default function About() {
-  const isLoading = useAppSelector((state) => state.preloader.isLoading);
+  const { data, isLoading, error } = useGetAboutContentQuery();
+  const isPreLoading = useAppSelector((state) => state.preloader.isLoading);
   const [hasBeenInView, setHasBeenInView] = useState(false);
 
   const handleInView = useCallback(
     (inView: boolean) => {
-      if (!isLoading && inView && !hasBeenInView) {
+      if (!isPreLoading && inView && !hasBeenInView) {
         setHasBeenInView(true);
       }
     },
-    [isLoading, hasBeenInView]
+    [isPreLoading, hasBeenInView]
   );
 
   const [ref] = useInView({
@@ -59,11 +65,19 @@ export default function About() {
     },
   };
 
+  if (isLoading || !data) {
+    return <span>Load...</span>;
+  }
+
+  if (error) {
+    return console.log(`Error data about ${error}`);
+  }
+
   return (
-    <section id="about" className={cls.about} >
+    <section id="about" className={cls.about}>
       <div className={`container ${cls.container}`}>
-        {!isLoading && (
-          <div className={cls.textWrapper} ref={ref} >
+        {!isPreLoading && (
+          <div className={cls.textWrapper} ref={ref}>
             <motion.div
               initial={{ opacity: 0 }}
               animate={hasBeenInView ? { opacity: 1 } : { opacity: 0 }}
@@ -97,10 +111,7 @@ export default function About() {
               className={`sectionTitle ${cls.sectionTitle}`}
               data-scroll-direction="vertical"
             >
-              <AnimatedText
-                text="I design the «why the hell didn't anyone think of this before?». In a world of automated blandness, I build brand gravity through bold, unreasonably good-looking shit."
-                delay={0.5}
-              />
+              <AnimatedText text={data?.description} delay={0.5} />
             </h2>
             <motion.div
               initial={{ opacity: 0 }}

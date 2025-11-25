@@ -1,0 +1,29 @@
+{
+  "title": "Latest Work",
+  "works": [
+    {
+      "id": 1,
+      "name": "Project 1",
+      "description": "",
+      "img": ""
+    },
+    {
+      "id": 2,
+      "name": "Project 2",
+      "description": "",
+      "img": ""
+    },
+    {
+      "id": 3,
+      "name": "Project 3",
+      "description": "",
+      "img": ""
+    },
+    {
+      "id": 4,
+      "name": "Project 4",
+      "description": "",
+      "img": ""
+    }
+  ]
+}

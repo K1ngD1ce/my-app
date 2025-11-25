@@ -4,8 +4,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedText from "@/shared/ui/animatedText/AnimatedText";
 import cls from "./style.module.scss";
+import { useGetWorksQuery } from "@/app/store/mockApi";
 
 export default function Work() {
+  const { data, isLoading, error } = useGetWorksQuery();
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsWrapperRef = useRef<HTMLDivElement>(null);
 
@@ -27,15 +29,13 @@ export default function Work() {
       const gap = 32;
       const totalCardsWidth = (cardWidth + gap) * cards.length;
       const visibleWidth = cardsWrapperRef.current!.offsetWidth;
-      
-      // Для мобильных уменьшаем движение, т.к. карточки шире
+
       const isMobile = window.innerWidth <= 1200;
-      const xMovement = isMobile 
+      const xMovement = isMobile
         ? totalCardsWidth - visibleWidth
         : totalCardsWidth - visibleWidth - cardWidth * 0;
 
-      // Убиваем предыдущий ScrollTrigger
-      ScrollTrigger.getAll().forEach(trigger => {
+      ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.trigger === containerRef.current) {
           trigger.kill();
         }
@@ -57,38 +57,39 @@ export default function Work() {
 
     setTimeout(setupAnimation, 100);
 
-    // Обновляем анимацию при ресайзе
     const handleResize = () => {
       setTimeout(setupAnimation, 100);
     };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [data]);
+
+  if (isLoading || !data) {
+    return <span>Load...</span>;
+  }
+
+  if (error) {
+    return console.log(`Error data works ${error}`);
+  }
 
   return (
-    <section
-      id="work"
-      className={cls.work}
-      ref={containerRef}
-    >
+    <section id="work" className={cls.work} ref={containerRef}>
       <div className={`container ${cls.container}`}>
         <div className={cls.titleWrapper}>
           <h2 className={cls.sectionTitle}>
-            <AnimatedText text="Latest Work" delay={0.3} />
+            <AnimatedText text={data?.title} delay={0.3} />
           </h2>
         </div>
 
         <div className={cls.cardsWrapper} ref={cardsWrapperRef}>
-          <div className={cls.card}>
-            <h2>Project 1</h2>
-          </div>
-          <div className={cls.card}>
-            <h2>Project 2</h2>
-          </div>
-          <div className={cls.card}>
-            <h2>Project 3</h2>
-          </div>
+          {data?.works.map((work) => {
+            return (
+              <div key={work.id} className={cls.card}>
+                <h2>{work.name}</h2>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

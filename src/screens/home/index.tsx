@@ -7,7 +7,7 @@ import { finishLoading } from "@/shared/ui/preloader/model/loaderSlice";
 import Preloader from "@/shared/ui/preloader/ui/";
 import Header from "@/widgets/header/ui";
 import Footer from "@/widgets/footer/ui";
-import Intro from "@/features/intro";
+import Intro from "@/features/intro/ui";
 import Cursor from "@/shared/ui/stikyCursor/ui";
 import About from "@/features/about/ui";
 import Work from "@/features/work/ui";
