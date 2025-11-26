@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useAppSelector } from "@/app/store/hooks";
 import { useGetHeroContentQuery } from "@/app/store/mockApi";
+import SceneIntro from "@/shared/ui/introScene";
 
 export default function Intro() {
   const { data, isLoading, error } = useGetHeroContentQuery();
@@ -24,7 +25,7 @@ export default function Intro() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0vh", "100vh"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0vh", "50vh"]);
 
   if (isLoading || !data) {
     return <span>Load..</span>;
@@ -51,6 +52,9 @@ export default function Intro() {
               />
             </h2>
           )}
+        </div>
+        <div className={cls.sceneWrapper}>
+          <SceneIntro />
         </div>
       </div>
       <div className={cls.invitation}>{`{ Scroll down to explore }`}</div>

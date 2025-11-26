@@ -47,7 +47,7 @@ export default function HomePage() {
         <About />
         <IntermediateBlock />
         <Work />
-        {/* <TechStack /> */}
+        <TechStack />
       </main>
       <Footer />
     </>

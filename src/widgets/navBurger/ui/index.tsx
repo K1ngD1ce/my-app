@@ -10,7 +10,7 @@ export default function NavBurger() {
   const navItems = [
     {
       title: "Home",
-      href: "/",
+      href: "#top",
     },
     {
       title: "About",
@@ -37,7 +37,7 @@ export default function NavBurger() {
     },
     {
       title: "Instagram",
-      href: "/",
+      href: "",
     },
   ];
 
