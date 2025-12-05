@@ -6,7 +6,7 @@ import "../../src/shared/styles/variables/vars.scss";
 
 
 export const metadata: Metadata = {
-  title: "App by Maxim Thorshin",
+  title: "Web app by Maxim Thorshin",
   description: "Welcome to my app! Enjoy your stay.",
   keywords: "frontend, developer, designer, web development",
   openGraph: {
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/assets/images/favicon.svg" />
+        <link rel="icon" href="/assets/images/favicon.ico" />
       </head>
       <body>
         <ReduxProvider>

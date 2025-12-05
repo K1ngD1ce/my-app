@@ -25,7 +25,12 @@ export default function Intro() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0vh", "50vh"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0vh", "40vh"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
+  const scale = useTransform(scrollYProgress, [0, 0.9], [1, 0.95]);
+
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   if (isLoading || !data) {
     return <span>Load..</span>;
@@ -35,9 +40,19 @@ export default function Intro() {
     return console.log(`Error data hero ${error}`);
   }
   return (
-    <motion.section style={{ y }} className={cls.intro} ref={container}>
+    <motion.section
+      style={{ y, opacity, scale }}
+      className={cls.intro}
+      ref={container}
+    >
       <div className={`container ${cls.container}`}>
-        <div className={`textWrapper ${cls.textWrapper}`}>
+        <motion.div
+          style={{
+            y: textY,
+            opacity: textOpacity,
+          }}
+          className={`textWrapper ${cls.textWrapper}`}
+        >
           {!isPreLoading && (
             <h2 className={`sectionTitle ${cls.sectionTitle}`}>
               <AnimatedText
@@ -52,12 +67,20 @@ export default function Intro() {
               />
             </h2>
           )}
-        </div>
+        </motion.div>
         <div className={cls.sceneWrapper}>
           <SceneIntro />
         </div>
       </div>
-      <div className={cls.invitation}>{`{ Scroll down to explore }`}</div>
+      <motion.div
+        className={cls.invitation}
+        style={{
+          y: textY,
+          opacity: textOpacity,
+        }}
+      >
+        {`{ Scroll down to explore }`}
+      </motion.div>
     </motion.section>
   );
 }

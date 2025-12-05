@@ -9,17 +9,6 @@
     pointer-events: none;
     transition: opacity .3s ease-in-out;
 
-    .text {
-        position: absolute;
-        top: 47%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(188deg);
-        
-        display: none;
-
-
-    }
-
     &.hidden {
         opacity: 0;
     }
@@ -27,14 +16,6 @@
     &.pointer {
         mix-blend-mode: exclusion;
     }
-
-    &.pointer.interactive {
-        .text {
-            display: block;
-            mix-blend-mode: exclusion;
-        }
-    }
-
 
     &.inverse {
         mix-blend-mode: exclusion;

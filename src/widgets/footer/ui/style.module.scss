@@ -33,7 +33,7 @@
             height: 50px;
             bottom: 100%;
             left: 40%;
-            font-size: clamp(18px, 18px + 4 * ((100vw - 360px) / 2200), 22px);
+            font-size: clamp(14px, 14px + 8 * ((100vw - 360px) / 2200), 22px);
             background-color: var(--absolute-white);
             color: var(--absolute-black);
             border-radius: 5px;
@@ -48,7 +48,8 @@
         .mail {
             .clickToCopy {
                 height: 35px;
-                font-size: clamp(18px, 18px + 4 * ((100vw - 360px) / 2200), 22px);
+                width: 120px;
+                left: 25%;
             }
         }
 

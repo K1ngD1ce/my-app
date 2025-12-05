@@ -19,7 +19,7 @@ export default function Cursor({ stickyElement }: CursorProps) {
   const [isHidden, setIsHidden] = useState(false);
   const [isInverse, setIsInverse] = useState(false);
   const cursor = useRef(null);
-  const cursorSize = isInterectiveLink ? 85 : isHovered ? 60 : isLinkHovered ? 30  : 10;
+  const cursorSize =  isHovered ? 60 : isLinkHovered ? 30  : 10;
 
   const mouse = {
     x: useMotionValue(0),
@@ -201,8 +201,6 @@ export default function Cursor({ stickyElement }: CursorProps) {
       }}
       className={cursorClasses}
       ref={cursor}
-    >
-      <span className={cls.text}>Visit</span>
-    </motion.div>
+    ></motion.div>
   );
 }
