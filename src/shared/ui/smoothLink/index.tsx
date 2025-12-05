@@ -20,7 +20,7 @@ export default function SmoothLink({
       e.preventDefault();
 
       const locomotiveScroll = (window as any).locomotiveScroll;
-      const targetId = href.substring(1); // убираем #
+      const targetId = href.substring(1); 
 
       if (locomotiveScroll) {
         if (targetId === "top" || targetId === "") {
@@ -39,7 +39,7 @@ export default function SmoothLink({
           }
         }
       } else {
-        // Fallback
+
         if (targetId === "top" || targetId === "") {
           window.scrollTo({ top: 0, behavior: "smooth" });
         } else {

@@ -13,6 +13,7 @@ import About from "@/features/about/ui";
 import Work from "@/features/work/ui";
 import IntermediateBlock from "@/features/intermediateBlock/ui";
 import TechStack from "@/features/techStack/ui";
+
 export default function HomePage() {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((state) => state.preloader.isLoading);
@@ -47,7 +48,7 @@ export default function HomePage() {
         <About />
         <IntermediateBlock />
         <Work />
-        <TechStack />
+        {/* <TechStack /> */}
       </main>
       <Footer />
     </>

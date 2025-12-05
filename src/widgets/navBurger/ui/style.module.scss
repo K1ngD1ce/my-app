@@ -44,10 +44,13 @@
         width: 60%;
 
         .body {
-            padding: 55px;
-            justify-content: unset;
-            gap: 20px;
+            padding: 15px;
 
+            .footer {
+                ul {
+                    margin-bottom: 70px;
+                }
+            }
         }
     }
 

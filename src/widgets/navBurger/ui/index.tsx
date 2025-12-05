@@ -6,7 +6,15 @@ import { motion } from "framer-motion";
 import { menuSlide } from "../lib/animate";
 import Magnetic from "@/shared/ui/magnetic/index";
 
-export default function NavBurger() {
+interface NavBurgerProps {
+  setIsActive: (value: boolean) => void;
+}
+
+export default function NavBurger({ setIsActive }: NavBurgerProps) {
+  const handleLinkClick = () => {
+    setIsActive(false);
+  };
+
   const navItems = [
     {
       title: "Home",
@@ -48,14 +56,13 @@ export default function NavBurger() {
       exit="exit"
       initial="initial"
       className={cls.menu}
-      
     >
       <div className={cls.body} data-cursor="inverse">
         <div className={cls.nav}>
           {navItems.map((item, index) => {
             return (
               <Magnetic key={index}>
-                <LinkItem data={{ ...item, index }} />
+                <LinkItem data={{ ...item, index }} onClick={handleLinkClick} />
               </Magnetic>
             );
           })}
@@ -65,7 +72,9 @@ export default function NavBurger() {
             {socialItemsNet.map((item, index) => {
               return (
                 <li key={`${item.title}-${index}`}>
-                  <a href={item.href} target="_blank">{item.title}</a>
+                  <a href={item.href} target="_blank">
+                    {item.title}
+                  </a>
                 </li>
               );
             })}

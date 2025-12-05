@@ -3,25 +3,30 @@
   "works": [
     {
       "id": 1,
-      "name": "Project 1",
-      "description": "",
-      "img": ""
+      "href": "https://stastretyak.com/",
+      "name": "Stas Tretyak",
+      "description": "Frontend development, UI motion, Interactive animations",
+      "img": "/assets/images/work/stastretyak.webp",
+      "background_card": "/assets/images/work/stastretyak-bg.jpg"
     },
     {
       "id": 2,
-      "name": "Project 2",
+      "href": "",
+      "name": "In developing..",
       "description": "",
       "img": ""
     },
     {
       "id": 3,
-      "name": "Project 3",
+      "href": "",
+      "name": "In developing..",
       "description": "",
       "img": ""
     },
     {
       "id": 4,
-      "name": "Project 4",
+      "href": "",
+      "name": "In developing..",
       "description": "",
       "img": ""
     }

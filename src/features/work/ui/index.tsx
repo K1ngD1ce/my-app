@@ -5,6 +5,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedText from "@/shared/ui/animatedText/AnimatedText";
 import cls from "./style.module.scss";
 import { useGetWorksQuery } from "@/app/store/mockApi";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Work() {
   const { data, isLoading, error } = useGetWorksQuery();
@@ -76,18 +78,58 @@ export default function Work() {
   return (
     <section id="work" className={cls.work} ref={containerRef}>
       <div className={`container ${cls.container}`}>
-        <div className={cls.titleWrapper}>
-          <h2 className={cls.sectionTitle}>
-            <AnimatedText text={data?.title} delay={0.3} />
-          </h2>
-        </div>
+        <h2 className={cls.sectionTitle}>
+          <AnimatedText text={data?.title} delay={0.3} />
+        </h2>
 
         <div className={cls.cardsWrapper} ref={cardsWrapperRef}>
           {data?.works.map((work) => {
             return (
-              <div key={work.id} className={cls.card}>
-                <h2>{work.name}</h2>
-              </div>
+              <Link
+                href={work.href}
+                key={work.id}
+                className={cls.card}
+                data-cursor="interactive"
+                target="_blank"
+                onMouseEnter={(e) => {
+                  document.dispatchEvent(
+                    new MouseEvent("mousemove", {
+                      clientX: e.clientX,
+                      clientY: e.clientY,
+                    })
+                  );
+                }}
+              >
+                <div className={cls.imgWrapper}>
+                  {work.img ? (
+                    <Image
+                      src={work.img}
+                      alt={work.name}
+                      width={2560}
+                      height={1440}
+                    />
+                  ) : (
+                    <div className={cls.inDeveloping}>
+                      <h2>Project0{work.id}</h2>
+                    </div>
+                  )}
+                  {work.background_card ? (
+                    <Image
+                      className={cls.backgroundCard}
+                      src={work?.background_card}
+                      alt={`background-${work.name}`}
+                      width={2560}
+                      height={1440}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                <div className={cls.textWrapper}>
+                  {work.description ? <span>{work.description}</span> : <></>}
+                  <span className={cls.name}>( {work.name} )</span>
+                </div>
+              </Link>
             );
           })}
         </div>

@@ -32,7 +32,11 @@ const Header = forwardRef(function Index(
           </Magnetic>
         </div>
       </header>
-      <AnimatePresence mode="wait">{isActive && <NavBurger />}</AnimatePresence>
+      <AnimatePresence mode="wait">
+        {isActive && (
+          <NavBurger  setIsActive={setIsActive} />
+        )}
+      </AnimatePresence>
     </>
   );
 });

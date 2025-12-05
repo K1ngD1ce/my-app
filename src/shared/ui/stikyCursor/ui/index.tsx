@@ -15,10 +15,11 @@ interface CursorProps {
 export default function Cursor({ stickyElement }: CursorProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isLinkHovered, setIsLinkHovered] = useState(false);
+  const [isInterectiveLink, setIsInterectiveLink] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [isInverse, setIsInverse] = useState(false);
   const cursor = useRef(null);
-  const cursorSize = isHovered ? 60 : isLinkHovered ? 30 : 10;
+  const cursorSize = isInterectiveLink ? 85 : isHovered ? 60 : isLinkHovered ? 30  : 10;
 
   const mouse = {
     x: useMotionValue(0),
@@ -53,11 +54,14 @@ export default function Cursor({ stickyElement }: CursorProps) {
 
     setIsHidden(isOutside);
 
-    const element = document.elementFromPoint(clientX, clientY);
+    const element = e.target;
     const cursorAttr = element
       ?.closest("[data-cursor]")
       ?.getAttribute("data-cursor");
     setIsInverse(cursorAttr === "inverse");
+    setIsInterectiveLink(cursorAttr === "interactive");
+    const isLink = element?.closest('a, button, [role="button"]');
+    setIsLinkHovered(!!isLink);
 
     if (!stickyElement.current) {
       mouse.x.set(clientX - cursorSize / 2);
@@ -176,6 +180,7 @@ export default function Cursor({ stickyElement }: CursorProps) {
     cls.cursor,
     isHidden && cls.hidden,
     isLinkHovered && cls.pointer,
+    isInterectiveLink && cls.interactive,
     isInverse && cls.inverse,
   ]
     .filter(Boolean)
@@ -196,6 +201,8 @@ export default function Cursor({ stickyElement }: CursorProps) {
       }}
       className={cursorClasses}
       ref={cursor}
-    ></motion.div>
+    >
+      <span className={cls.text}>Visit</span>
+    </motion.div>
   );
 }

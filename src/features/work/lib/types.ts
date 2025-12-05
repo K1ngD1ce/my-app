@@ -5,7 +5,9 @@ export interface WorkDataType {
 
 interface Works {
   id: number;
+  href: string;
   name: string;
   description: string;
   img: string;
+  background_card: string
 }

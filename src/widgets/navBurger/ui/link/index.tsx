@@ -5,6 +5,7 @@ import { slide } from "../../lib/animate";
 
 interface LinkItemProps {
   data: DataProp;
+  onClick?: () => void;
 }
 
 interface DataProp {
@@ -13,7 +14,11 @@ interface DataProp {
   index: number;
 }
 
-export default function LinkItem({ data }: LinkItemProps) {
+export default function LinkItem({ data, onClick }: LinkItemProps) {
+  const handleClick = () => {
+
+    onClick?.();
+  };
   return (
     <motion.div
       custom={data.index}
@@ -22,6 +27,7 @@ export default function LinkItem({ data }: LinkItemProps) {
       exit="exit"
       initial="initial"
       className={cls.link}
+      onClick={handleClick}
     >
       <SmoothLink href={data.href}>{data.title}</SmoothLink>
     </motion.div>
