@@ -1,5 +1,5 @@
 "use client";
-
+import type LocomotiveScrollType from 'locomotive-scroll';
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
@@ -20,7 +20,6 @@ export default function HomePage() {
   const stickyElement = useRef<HTMLElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Проверка на мобильные устройства
   useEffect(() => {
     const checkMobile = () => {
       const isMobileDevice = window.innerWidth <= 768;
@@ -34,10 +33,9 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    let locomotiveScroll: any = null;
+   let locomotiveScroll: LocomotiveScrollType | null = null;
 
     (async () => {
-
       if (isMobile) {
         setTimeout(() => {
           dispatch(finishLoading());
@@ -47,13 +45,12 @@ export default function HomePage() {
         return;
       }
 
-
       const LocomotiveScroll = (await import("locomotive-scroll")).default;
       locomotiveScroll = new LocomotiveScroll({
         smooth: true,
-        multiplier: 0.8, 
-        touchMultiplier: 2, 
-        lerp: 0.1, 
+        multiplier: 0.8,
+        touchMultiplier: 2,
+        lerp: 0.1,
 
         smartphone: {
           smooth: false,
@@ -70,7 +67,7 @@ export default function HomePage() {
 
         if (locomotiveScroll) {
           setTimeout(() => {
-            locomotiveScroll.update();
+            locomotiveScroll!.update();
           }, 100);
         }
       }, 2000);
