@@ -67,7 +67,7 @@ export default function SmoothLink({
   };
 
   return (
-    <Link href={href} onClick={handleClick}>
+    <Link href={href} onClick={handleClick} className={className}>
       {children}
     </Link>
   );

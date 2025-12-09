@@ -12,7 +12,7 @@ import Cursor from "@/shared/ui/stikyCursor/ui";
 import About from "@/features/about/ui";
 import Work from "@/features/work/ui";
 import IntermediateBlock from "@/features/intermediateBlock/ui";
-import TechStack from "@/features/techStack/ui";
+// import TechStack from "@/features/techStack/ui";
 
 export default function HomePage() {
   const dispatch = useAppDispatch();
