@@ -1,102 +1,86 @@
-"use client";
-import type LocomotiveScrollType from 'locomotive-scroll';
-import { AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
-import { finishLoading } from "@/shared/ui/preloader/model/loaderSlice";
-import Preloader from "@/shared/ui/preloader/ui/";
-import Header from "@/widgets/header/ui";
-import Footer from "@/widgets/footer/ui";
-import Intro from "@/features/intro/ui";
-import Cursor from "@/shared/ui/stikyCursor/ui";
-import About from "@/features/about/ui";
-import Work from "@/features/work/ui";
-import IntermediateBlock from "@/features/intermediateBlock/ui";
-// import TechStack from "@/features/techStack/ui";
+import cls from "./style.module.scss";
+import AnimatedText from "@/shared/ui/animatedText/AnimatedText";
+import { useRef, useState, useEffect } from "react";
+import { useScroll, useTransform, motion } from "framer-motion";
+import { useAppSelector } from "@/app/store/hooks";
+import { useGetHeroContentQuery } from "@/app/store/mockApi";
+import SceneIntro from "@/shared/ui/introScene";
 
-export default function HomePage() {
-  const dispatch = useAppDispatch();
-  const isLoading = useAppSelector((state) => state.preloader.isLoading);
-  const stickyElement = useRef<HTMLElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+export default function Intro() {
+  const { data, isLoading, error } = useGetHeroContentQuery();
+
+  const isPreLoading = useAppSelector((state) => state.preloader.isLoading);
+
+  const container = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      const isMobileDevice = window.innerWidth <= 768;
-      setIsMobile(isMobileDevice);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    return () => window.removeEventListener("resize", checkMobile);
+    requestAnimationFrame(() => {
+      setIsMounted(true);
+    });
   }, []);
 
-  useEffect(() => {
-   let locomotiveScroll: LocomotiveScrollType | null = null;
+  const { scrollYProgress } = useScroll({
+    target: isMounted ? container : undefined,
+    offset: ["start start", "end start"],
+  });
 
-    (async () => {
-      if (isMobile) {
-        setTimeout(() => {
-          dispatch(finishLoading());
-          document.body.style.cursor = "default";
-          window.scrollTo(0, 0);
-        }, 2000);
-        return;
-      }
+  const y = useTransform(scrollYProgress, [0, 1], ["0vh", "40vh"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
+  const scale = useTransform(scrollYProgress, [0, 0.9], [1, 0.95]);
 
-      const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      locomotiveScroll = new LocomotiveScroll({
-        smooth: true,
-        multiplier: 0.8,
-        touchMultiplier: 2,
-        lerp: 0.1,
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
-        smartphone: {
-          smooth: false,
-        },
-        tablet: {
-          smooth: false,
-        },
-      });
+  if (isLoading || !data) {
+    return <span>Load..</span>;
+  }
 
-      setTimeout(() => {
-        dispatch(finishLoading());
-        document.body.style.cursor = "default";
-        window.scrollTo(0, 0);
-
-        if (locomotiveScroll) {
-          setTimeout(() => {
-            locomotiveScroll!.update();
-          }, 100);
-        }
-      }, 2000);
-    })();
-
-    return () => {
-      if (locomotiveScroll) {
-        locomotiveScroll.destroy();
-      }
-    };
-  }, [dispatch, isMobile]);
-
+  if (error) {
+    return console.log(`Error data hero ${error}`);
+  }
   return (
-    <>
-      <AnimatePresence mode="wait">
-        {isLoading && <Preloader />}
-      </AnimatePresence>
-
-      {!isMobile && <Cursor stickyElement={stickyElement} />}
-
-      <Header ref={stickyElement} />
-      <main>
-        <Intro />
-        <About />
-        <IntermediateBlock />
-        <Work />
-        {/* <TechStack /> */}
-      </main>
-      <Footer />
-    </>
+    <motion.section
+      style={{ y, opacity, scale }}
+      className={cls.intro}
+      ref={container}
+    >
+      <div className={`container ${cls.container}`}>
+        <motion.div
+          style={{
+            y: textY,
+            opacity: textOpacity,
+          }}
+          className={`textWrapper ${cls.textWrapper}`}
+        >
+          {!isPreLoading && (
+            <h2 className={`sectionTitle ${cls.sectionTitle}`}>
+              <AnimatedText
+                delay={0.5}
+                text={data?.greeting}
+                triggerAnimation={!isPreLoading}
+              />
+              <AnimatedText
+                text={data?.description}
+                delay={1}
+                triggerAnimation={!isPreLoading}
+              />
+            </h2>
+          )}
+        </motion.div>
+        <div className={cls.sceneWrapper}>
+          <SceneIntro />
+        </div>
+      </div>
+      <motion.div
+        className={cls.invitation}
+        style={{
+          y: textY,
+          opacity: textOpacity,
+        }}
+      >
+        {`{ Scroll down to explore }`}
+      </motion.div>
+    </motion.section>
   );
 }
