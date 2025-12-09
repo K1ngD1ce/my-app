@@ -12,6 +12,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Home - Maxim Thorshin",
     description: "Welcome to my portfolio",
+    images: [
+      {
+        url: '/assets/images/openGraph.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'site intro',
+      }
+    ]
   },
 };
 
