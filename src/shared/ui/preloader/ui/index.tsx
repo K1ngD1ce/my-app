@@ -1,7 +1,7 @@
 "use client";
 import cls from "./style.module.scss";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import { motion, Variants } from "framer-motion";
 import { opacity, slideUp } from "../lib/animate";
 
 const words = [
@@ -19,9 +19,31 @@ const words = [
 export default function Preloader() {
   const [index, setIndex] = useState(0);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
+  const isMountedRef = useRef(false);
 
   useEffect(() => {
-    setDimension({ width: window.innerWidth, height: window.innerHeight });
+    const updateDimension = () => {
+      setDimension({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    const rafId = requestAnimationFrame(updateDimension);
+
+    const handleResize = () => {
+      cancelAnimationFrame(rafId);
+      requestAnimationFrame(updateDimension);
+    };
+
+    window.addEventListener("resize", handleResize);
+    isMountedRef.current = true; // ← Изменил на useRef
+
+    return () => {
+      isMountedRef.current = false;
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -43,7 +65,7 @@ export default function Preloader() {
     dimension.height
   } Q${dimension.width / 2} ${dimension.height} 0 ${dimension.height}  L0 0`;
 
-  const curve = {
+  const curve: Variants = {
     initial: {
       d: initialPath,
       transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] },

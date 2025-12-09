@@ -9,6 +9,23 @@ interface SmoothLinkProps {
   duration?: number;
 }
 
+interface LocomotiveScrollInstance {
+  scrollTo: (
+    target: HTMLElement | number,
+    options?: {
+      duration?: number;
+      offset?: number;
+      easing?: number[];
+    }
+  ) => void;
+}
+
+declare global {
+  interface Window {
+    locomotiveScroll?: LocomotiveScrollInstance;
+  }
+}
+
 export default function SmoothLink({
   href,
   children,
@@ -19,8 +36,8 @@ export default function SmoothLink({
     if (href.startsWith("#")) {
       e.preventDefault();
 
-      const locomotiveScroll = (window as any).locomotiveScroll;
-      const targetId = href.substring(1); 
+      const locomotiveScroll = window.locomotiveScroll;
+      const targetId = href.substring(1);
 
       if (locomotiveScroll) {
         if (targetId === "top" || targetId === "") {
@@ -39,7 +56,6 @@ export default function SmoothLink({
           }
         }
       } else {
-
         if (targetId === "top" || targetId === "") {
           window.scrollTo({ top: 0, behavior: "smooth" });
         } else {

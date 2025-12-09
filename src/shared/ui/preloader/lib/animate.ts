@@ -1,4 +1,6 @@
-export const opacity = {
+import { Variants } from "framer-motion";
+
+export const opacity : Variants = {
   initial: {
     opacity: 0,
   },
@@ -8,7 +10,7 @@ export const opacity = {
   },
 };
 
-export const slideUp = {
+export const slideUp : Variants = {
   initial: {
     top: 0,
   },
