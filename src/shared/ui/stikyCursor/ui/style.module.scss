@@ -9,6 +9,25 @@
     pointer-events: none;
     transition: opacity .3s ease-in-out;
 
+    .cursorInner {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        z-index: 501;
+
+        .text {
+            color: var(--absolute-black);
+            opacity: 0;
+            transform: rotate(0deg) !important;
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+        }
+    }
+
+
     &.hidden {
         opacity: 0;
     }
@@ -17,8 +36,19 @@
         mix-blend-mode: exclusion;
     }
 
+    .text {
+        color: var(--absolute-white);
+        mix-blend-mode: exclusion;
+    }
+
     &.inverse {
         mix-blend-mode: exclusion;
+    }
+
+    &.interactive {
+        .text {
+            opacity: 1;
+        }
     }
 
     @media (max-width: 992px) {

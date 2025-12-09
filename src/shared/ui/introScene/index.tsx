@@ -24,7 +24,7 @@ export default function HighQualityScene() {
 
   return (
     <Spline
-      scene="https://prod.spline.design/BU2yBzEGoZqtLwlN/scene.splinecode"
+      scene="https://prod.spline.design/BU2yBzEGoZqtLwlN/scene.splinecode" 
       onLoad={handleLoad}
       onSplineMouseDown={handleMouseDown}
       onSplineMouseHover={(e) => console.log("Hover:", e.target.name)}

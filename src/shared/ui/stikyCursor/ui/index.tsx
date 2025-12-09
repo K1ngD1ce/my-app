@@ -19,7 +19,14 @@ export default function Cursor({ stickyElement }: CursorProps) {
   const [isHidden, setIsHidden] = useState(false);
   const [isInverse, setIsInverse] = useState(false);
   const cursor = useRef(null);
-  const cursorSize =  isHovered ? 60 : isLinkHovered ? 30  : 10;
+  const cursorInner = useRef(null);
+  const cursorSize = isInterectiveLink
+    ? 80
+    : isHovered
+    ? 60
+    : isLinkHovered
+    ? 30
+    : 10;
 
   const mouse = {
     x: useMotionValue(0),
@@ -41,6 +48,10 @@ export default function Cursor({ stickyElement }: CursorProps) {
   const rotate = (distance) => {
     const angle = Math.atan2(distance.y, distance.x);
     animate(cursor.current, { rotate: `${angle}rad` }, { duration: 0 });
+
+    if (cursorInner.current) {
+      animate(cursorInner.current, { rotate: `-${angle}rad` }, { duration: 0 });
+    }
   };
 
   const manageMouseMove = (e) => {
@@ -115,6 +126,10 @@ export default function Cursor({ stickyElement }: CursorProps) {
       { duration: 0.1 },
       { type: "spring" }
     );
+
+    if (cursorInner.current) {
+      animate(cursorInner.current, { rotate: `0deg` }, { duration: 0.1 });
+    }
   };
 
   const handleLinkMouseEnter = () => {
@@ -201,6 +216,13 @@ export default function Cursor({ stickyElement }: CursorProps) {
       }}
       className={cursorClasses}
       ref={cursor}
-    ></motion.div>
+    >
+      <div
+        ref={cursorInner}
+        className={cls.cursorInner}
+      >
+        {isInterectiveLink && <span className={cls.text}>Visit</span>}
+      </div>
+    </motion.div>
   );
 }
