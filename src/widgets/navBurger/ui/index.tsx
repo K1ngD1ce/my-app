@@ -45,7 +45,7 @@ export default function NavBurger({ setIsActive }: NavBurgerProps) {
     },
     {
       title: "Instagram",
-      href: "",
+      href: "https://www.instagram.com/_mth0r/",
     },
   ];
 
