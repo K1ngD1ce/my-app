@@ -46,28 +46,38 @@ export default function Intro() {
       ref={container}
     >
       <div className={`container ${cls.container}`}>
-        <motion.div
-          style={{
-            y: textY,
-            opacity: textOpacity,
-          }}
-          className={`textWrapper ${cls.textWrapper}`}
-        >
-          {!isPreLoading && (
-            <h2 className={`sectionTitle ${cls.sectionTitle}`}>
+        {!isPreLoading && (
+          <motion.div
+            style={{
+              y: textY,
+              opacity: textOpacity,
+            }}
+            className={`textWrapper ${cls.textWrapper}`}
+          >
+            <span className={cls.smallTitle}>
               <AnimatedText
                 delay={0.5}
+                text={data?.smallTitle}
+                triggerAnimation={!isPreLoading}
+              />
+            </span>
+
+            <h2 className={`sectionTitle ${cls.sectionTitle}`}>
+              <AnimatedText
+                delay={1}
                 text={data?.greeting}
                 triggerAnimation={!isPreLoading}
               />
+            </h2>
+            <h3 className={cls.description}>
               <AnimatedText
                 text={data?.description}
-                delay={1}
+                delay={1.5}
                 triggerAnimation={!isPreLoading}
               />
-            </h2>
-          )}
-        </motion.div>
+            </h3>
+          </motion.div>
+        )}
         <div className={cls.sceneWrapper}>
           <SceneIntro />
         </div>

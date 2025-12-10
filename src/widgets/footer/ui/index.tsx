@@ -55,7 +55,7 @@ export default function Footer() {
           </button>
         </div>
       </div>
-      <Marquee text="Thanks for watching"/>
+      
       <div className="container">
         <div className={cls.footerBottom}>
           <span>All rights reserved &copy; MThor </span>
