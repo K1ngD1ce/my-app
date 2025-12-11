@@ -3,6 +3,7 @@ import cls from "./style.module.scss";
 import { useEffect, useState, useRef } from "react";
 import { motion, Variants } from "framer-motion";
 import { opacity, slideUp } from "../lib/animate";
+import { useBodyScrollLock } from "@/shared/hooks/useBodyScrollLock";
 
 const words = [
   "Hello",
@@ -19,7 +20,10 @@ const words = [
 export default function Preloader() {
   const [index, setIndex] = useState(0);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
+  const [isLocked, setIsLocked] = useState(true);
   const isMountedRef = useRef(false);
+
+  useBodyScrollLock(isLocked);
 
   useEffect(() => {
     const updateDimension = () => {
@@ -37,7 +41,7 @@ export default function Preloader() {
     };
 
     window.addEventListener("resize", handleResize);
-    isMountedRef.current = true; // ← Изменил на useRef
+    isMountedRef.current = true;
 
     return () => {
       isMountedRef.current = false;
@@ -47,7 +51,13 @@ export default function Preloader() {
   }, []);
 
   useEffect(() => {
-    if (index == words.length - 1) return;
+    if (index == words.length - 1) {
+      setTimeout(() => {
+        setIsLocked(false);
+      }, 1000);
+      return;
+    }
+
     setTimeout(
       () => {
         setIndex(index + 1);
