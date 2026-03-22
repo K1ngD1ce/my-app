@@ -37,7 +37,8 @@ export default function Intro() {
   }
 
   if (error) {
-    return console.log(`Error data hero ${error}`);
+    console.log(error);
+    return null;
   }
   return (
     <motion.section

@@ -22,7 +22,7 @@ export default function About() {
         setHasBeenInView(true);
       }
     },
-    [isPreLoading, hasBeenInView]
+    [isPreLoading, hasBeenInView],
   );
 
   const [ref] = useInView({
@@ -70,7 +70,8 @@ export default function About() {
   }
 
   if (error) {
-    return console.log(`Error data about ${error}`);
+    console.log(error);
+    return null;
   }
 
   return (

@@ -4,14 +4,14 @@ import cls from "./style.module.scss";
 import AnimatedText from "@/shared/ui/animatedText/AnimatedText";
 import Magnetic from "@/shared/ui/magnetic";
 import SmoothLink from "@/shared/ui/smoothLink";
-import Marquee from "@/shared/ui/marquee/ui";
+import { siteConfig } from "@/shared/configs/site.config";
 export default function Footer() {
   const [isHovered, setIsHovered] = useState(false);
   const [copied, setCopied] = useState<boolean>(false);
 
-  const handleCopy = (e) => {
+  const handleCopy = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    navigator.clipboard.writeText("mthor@vk.com").then(() => {
+    navigator.clipboard.writeText(`${siteConfig.socialMedia.mailto}`).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
@@ -38,7 +38,7 @@ export default function Footer() {
             onMouseLeave={manageMouseLeave}
             onClick={handleCopy}
           >
-            <span>mthor@vk.com</span>
+            <span>{siteConfig.socialMedia.mail}</span>
             <AnimatePresence>
               {isHovered && (
                 <motion.span

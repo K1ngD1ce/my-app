@@ -5,6 +5,7 @@ import Curve from "./curve";
 import { motion } from "framer-motion";
 import { menuSlide } from "../lib/animate";
 import Magnetic from "@/shared/ui/magnetic/index";
+import { siteConfig } from "@/shared/configs/site.config";
 
 interface NavBurgerProps {
   setIsActive: (value: boolean) => void;
@@ -37,15 +38,15 @@ export default function NavBurger({ setIsActive }: NavBurgerProps) {
   const socialItemsNet = [
     {
       title: "Mail",
-      href: "mailto:mthor@vk.com",
+      href: `mailto:${siteConfig.socialMedia.mailto}`,
     },
     {
       title: "Telegram",
-      href: "https://t.me/MTh0rrr",
+      href: siteConfig.socialMedia.telegram,
     },
     {
       title: "Instagram",
-      href: "https://www.instagram.com/_mth0r/",
+      href: siteConfig.socialMedia.instagram,
     },
   ];
 

@@ -1,18 +1,18 @@
 "use client";
 
+import Work from "@/features/work/ui";
+import Intro from "@/features/intro/ui";
+import About from "@/features/about/ui";
+import Header from "@/widgets/header/ui";
+import Cursor from "@/shared/ui/stikyCursor/ui";
+import Footer from "@/widgets/footer/ui";
+import Preloader from "@/shared/ui/preloader/ui/";
+import IntermediateBlock from "@/features/intermediateBlock/ui";
+
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { finishLoading } from "@/shared/ui/preloader/model/loaderSlice";
-import Preloader from "@/shared/ui/preloader/ui/";
-import Header from "@/widgets/header/ui";
-import Footer from "@/widgets/footer/ui";
-import Intro from "@/features/intro/ui";
-import Cursor from "@/shared/ui/stikyCursor/ui";
-import About from "@/features/about/ui";
-import Work from "@/features/work/ui";
-import IntermediateBlock from "@/features/intermediateBlock/ui";
-// import TechStack from "@/features/techStack/ui";
 
 export default function HomePage() {
   const dispatch = useAppDispatch();
@@ -48,7 +48,6 @@ export default function HomePage() {
         <About />
         <IntermediateBlock />
         <Work />
-        {/* <TechStack /> */}
       </main>
       <Footer />
     </>

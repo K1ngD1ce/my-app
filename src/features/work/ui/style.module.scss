@@ -120,5 +120,26 @@
 
     @media (max-width: 768px) {
         padding: 35px 0;
+        overflow: visible;
+        height: auto;
+
+        .container {
+            gap: 25px;
+            overflow: visible;
+        }
+
+        .cardsWrapper {
+            overflow-x: auto;
+            overflow-y: visible;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 10px;
+            height: auto;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
     }
 }
