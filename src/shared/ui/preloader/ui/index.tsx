@@ -62,18 +62,21 @@ export default function Preloader() {
       () => {
         setIndex(index + 1);
       },
-      index == 0 ? 1000 : 150
+      index == 0 ? 1000 : 150,
     );
   }, [index]);
 
+  const curveOffset = Math.min(dimension.height * 0.15, 300);
+
   const initialPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${
     dimension.height
-  } Q${dimension.width / 2} ${dimension.height + 300} 0 ${
+  } Q${dimension.width / 2} ${dimension.height + curveOffset} 0 ${
     dimension.height
-  }  L0 0`;
+  } L0 0`;
+
   const targetPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${
     dimension.height
-  } Q${dimension.width / 2} ${dimension.height} 0 ${dimension.height}  L0 0`;
+  } Q${dimension.width / 2} ${dimension.height} 0 ${dimension.height} L0 0`;
 
   const curve: Variants = {
     initial: {

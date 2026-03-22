@@ -13,6 +13,8 @@ import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { finishLoading } from "@/shared/ui/preloader/model/loaderSlice";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function HomePage() {
   const dispatch = useAppDispatch();
@@ -20,9 +22,29 @@ export default function HomePage() {
   const stickyElement = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     (async () => {
-      const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      const locomotiveScroll = new LocomotiveScroll();
+      const Lenis = (await import("@studio-freight/lenis")).default;
+
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+        syncTouch: false,
+        touchMultiplier: 0,
+        wheelMultiplier: 1,
+      });
+
+      lenis.on("scroll", () => ScrollTrigger.update());
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+
+      gsap.ticker.lagSmoothing(0);
 
       setTimeout(() => {
         dispatch(finishLoading());
@@ -30,9 +52,14 @@ export default function HomePage() {
         window.scrollTo(0, 0);
 
         setTimeout(() => {
-          locomotiveScroll.current?.update();
-        }, 100);
+          ScrollTrigger.refresh();
+        }, 300);
       }, 2000);
+
+      return () => {
+        lenis.destroy();
+        gsap.ticker.remove((time) => lenis.raf(time * 1000));
+      };
     })();
   }, [dispatch]);
 
