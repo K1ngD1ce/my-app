@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description: "Welcome to my portfolio",
     images: [
       {
-        url: '/assets/images/openGraph.jpg',
+        url: '/assets/images/open.graph.jpg',
         width: 1200,
         height: 630,
         alt: 'site intro',
