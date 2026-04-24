@@ -11,10 +11,11 @@
     },
     {
       "id": 2,
-      "href": "",
-      "name": "In developing..",
-      "description": "",
-      "img": ""
+      "href": "https://kinoteatr-avrora.ru/",
+      "name": "Aurora Cinema",
+      "description": "Frontend development, UI motion",
+      "img": "/assets/images/work/aurora.jpg",
+      "background_card": "/assets/images/work/avrora.bg.jpg"
     },
     {
       "id": 3,
