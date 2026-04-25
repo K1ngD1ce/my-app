@@ -3,6 +3,14 @@
   "works": [
     {
       "id": 1,
+      "href": "https://kinoteatr-avrora.ru/",
+      "name": "Aurora Cinema",
+      "description": "Frontend development, UI motion",
+      "img": "/assets/images/work/aurora.jpg",
+      "background_card": "/assets/images/work/aurora.bg.jpg"
+    },
+    {
+      "id": 2,
       "href": "https://stastretyak.com/",
       "name": "Stas Tretyak",
       "description": "Frontend development, UI motion, Interactive animations",
@@ -10,26 +18,12 @@
       "background_card": "/assets/images/work/stastretyak.bg.webp"
     },
     {
-      "id": 2,
-      "href": "https://kinoteatr-avrora.ru/",
-      "name": "Aurora Cinema",
-      "description": "Frontend development, UI motion",
-      "img": "/assets/images/work/aurora.jpg",
-      "background_card": "/assets/images/work/avrora.bg.jpg"
-    },
-    {
       "id": 3,
       "href": "",
       "name": "In developing..",
       "description": "",
       "img": ""
-    },
-    {
-      "id": 4,
-      "href": "",
-      "name": "In developing..",
-      "description": "",
-      "img": ""
     }
+  
   ]
 }
