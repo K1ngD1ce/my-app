@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from "react";
 import cls from "./style.module.scss";
+
+import type { SpringOptions, TransformProperties } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   transform,
@@ -9,8 +11,14 @@ import {
 } from "framer-motion";
 
 interface CursorProps {
-  stickyElement: React.RefObject<HTMLElement>;
+  stickyElement: React.RefObject<HTMLDivElement | null>;
 }
+
+interface Point {
+  x: number;
+  y: number;
+}
+
 
 export default function Cursor({ stickyElement }: CursorProps) {
   const [isHovered, setIsHovered] = useState(false);
@@ -18,8 +26,8 @@ export default function Cursor({ stickyElement }: CursorProps) {
   const [isInterectiveLink, setIsInterectiveLink] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [isInverse, setIsInverse] = useState(false);
-  const cursor = useRef(null);
-  const cursorInner = useRef(null);
+  const cursor = useRef<HTMLDivElement | null>(null);
+  const cursorInner = useRef<HTMLDivElement | null>(null);
   const cursorSize = isInterectiveLink
     ? 80
     : isHovered
@@ -39,13 +47,15 @@ export default function Cursor({ stickyElement }: CursorProps) {
   };
 
   //Smooth out the mouse values
-  const smoothOptions = { damping: 20, stiffness: 300, mass: 0.5 };
+  const smoothOptions: SpringOptions = { damping: 20, stiffness: 300, mass: 0.5 };
   const smoothMouse = {
     x: useSpring(mouse.x, smoothOptions),
     y: useSpring(mouse.y, smoothOptions),
   };
 
-  const rotate = (distance) => {
+  
+  const rotate = (distance: Point) => {
+    if (!cursor.current) return;
     const angle = Math.atan2(distance.y, distance.x);
     animate(cursor.current, { rotate: `${angle}rad` }, { duration: 0 });
 
@@ -54,7 +64,7 @@ export default function Cursor({ stickyElement }: CursorProps) {
     }
   };
 
-  const manageMouseMove = (e) => {
+  const manageMouseMove = (e: MouseEvent) => {
     const { clientX, clientY } = e;
 
     const isOutside =
@@ -65,7 +75,7 @@ export default function Cursor({ stickyElement }: CursorProps) {
 
     setIsHidden(isOutside);
 
-    const element = e.target;
+    const element = e.target as HTMLElement | null;
     const cursorAttr = element
       ?.closest("[data-cursor]")
       ?.getAttribute("data-cursor");
@@ -114,18 +124,22 @@ export default function Cursor({ stickyElement }: CursorProps) {
     }
   };
 
-  const manageMouseOver = (e) => {
+  const manageMouseOver = () => {
     setIsHovered(true);
   };
 
-  const manageMouseLeave = (e) => {
+  const manageMouseLeave = () => {
     setIsHovered(false);
-    animate(
-      cursor.current,
-      { scaleX: 1, scaleY: 1 },
-      { duration: 0.1 },
-      { type: "spring" }
-    );
+    if (cursor.current) {
+      animate(
+        cursor.current,
+        { scaleX: 1, scaleY: 1 },
+        {
+          type: "spring",
+          duration: 0.1,
+        }
+      );
+    }
 
     if (cursorInner.current) {
       animate(cursorInner.current, { rotate: `0deg` }, { duration: 0.1 });
@@ -156,9 +170,11 @@ export default function Cursor({ stickyElement }: CursorProps) {
       link.addEventListener("mouseleave", handleLinkMouseLeave);
     });
 
-    if (stickyElement.current) {
-      stickyElement.current.addEventListener("mouseenter", manageMouseOver);
-      stickyElement.current.addEventListener("mouseleave", manageMouseLeave);
+    const stickyElementCurrent = stickyElement.current;
+
+    if (stickyElementCurrent) {
+      stickyElementCurrent.addEventListener("mouseenter", manageMouseOver);
+      stickyElementCurrent.addEventListener("mouseleave", manageMouseLeave);
     }
 
     document.addEventListener("mouseenter", handleMouseEnter);
@@ -171,14 +187,14 @@ export default function Cursor({ stickyElement }: CursorProps) {
         link.removeEventListener("mouseleave", handleLinkMouseLeave);
       });
 
-      if (stickyElement.current) {
-        stickyElement.current.removeEventListener(
+      if (stickyElementCurrent) {
+        stickyElementCurrent.removeEventListener(
           "mouseenter",
-          manageMouseOver
+          manageMouseOver,
         );
-        stickyElement.current.removeEventListener(
+        stickyElementCurrent.removeEventListener(
           "mouseleave",
-          manageMouseLeave
+          manageMouseLeave,
         );
       }
       document.removeEventListener("mouseenter", handleMouseEnter);
@@ -187,10 +203,11 @@ export default function Cursor({ stickyElement }: CursorProps) {
     };
   }, [isHovered, isLinkHovered]);
 
-  const template = ({ rotate, scaleX, scaleY }) => {
-    return `rotate(${rotate}) scaleX(${scaleX}) scaleY(${scaleY})`;
-  };
+  const template = (transform: TransformProperties) => {
+  const { rotate, scaleX, scaleY } = transform;
 
+  return `rotate(${rotate}) scaleX(${scaleX}) scaleY(${scaleY})`;
+};
   const cursorClasses = [
     cls.cursor,
     isHidden && cls.hidden,
@@ -217,10 +234,7 @@ export default function Cursor({ stickyElement }: CursorProps) {
       className={cursorClasses}
       ref={cursor}
     >
-      <div
-        ref={cursorInner}
-        className={cls.cursorInner}
-      >
+      <div ref={cursorInner} className={cls.cursorInner}>
         {isInterectiveLink && <span className={cls.text}>Visit</span>}
       </div>
     </motion.div>

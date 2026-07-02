@@ -1,0 +1,73 @@
+.work {
+    padding: 100px 0;
+    height: 100vh;
+    border-radius: 50px 0 0 0 !important;
+    overflow: hidden;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        height: 100%;
+    }
+
+    .cardsWrapper {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: start;
+        gap: 50px;
+    }
+
+
+
+    @media (max-width: 1920px) {
+        padding: 80px 0;
+    }
+
+    @media (max-width: 1440px) {
+        .cardsWrapper {
+            gap: 30px;
+        }
+
+    }
+
+    @media (max-width: 1200px) {
+        padding: 60px 0;
+
+        .container {
+            gap: 35px;
+        }
+
+    }
+
+
+    @media (max-width: 768px) {
+        padding: 35px 0;
+        overflow: visible;
+        height: auto;
+
+        .container {
+            gap: 25px;
+            overflow: visible;
+        }
+
+        .cardsWrapper {
+            overflow-x: auto;
+            overflow-y: visible;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 10px;
+            height: auto;
+            gap: 15px;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+    }
+}

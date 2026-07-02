@@ -1,11 +1,11 @@
 import { fakeBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import heroContentData from "../../../public/assets/mocks/heroBlock.json";
-import { ContentDataType } from "@/features/intro/lib/types";
+import { ContentDataType } from "@/widgets/intro-block/lib/types";
 import aboutContentData from "../../../public/assets/mocks/aboutBlock.json";
-import { AboutDataType } from "@/features/about/ui/index";
+import { AboutDataType } from "@/widgets/about-block/ui/index";
 import worksData from "../../../public/assets/mocks/latestWork.json";
-import { WorkDataType } from "@/features/work/lib/types";
+import { WorkDataType } from "@/widgets/work-block/lib/types";
 
 export const mockApiSlice = createApi({
   reducerPath: "mockApi",
@@ -23,4 +23,8 @@ export const mockApiSlice = createApi({
   }),
 });
 
-export const { useGetHeroContentQuery, useGetAboutContentQuery, useGetWorksQuery } = mockApiSlice;
+export const {
+  useGetHeroContentQuery,
+  useGetAboutContentQuery,
+  useGetWorksQuery,
+} = mockApiSlice;

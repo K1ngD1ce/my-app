@@ -3,11 +3,11 @@ export interface WorkDataType {
   works: Works[];
 }
 
-interface Works {
+export interface Works {
   id: number;
   href: string;
   name: string;
   description: string;
   img: string;
-  background_card: string
+  background_card?: string;
 }

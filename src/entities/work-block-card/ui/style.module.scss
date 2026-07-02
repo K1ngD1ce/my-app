@@ -1,0 +1,92 @@
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    flex: 1 0 50%;
+    height: 100%;
+    margin-right: 0;
+
+    .imgWrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 65vh;
+
+        @media (max-height: 970px) {
+            height: 62vh;
+        }
+
+        .backgroundCard {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+    }
+
+    img {
+        position: relative;
+        width: 70%;
+        height: fit-content;
+        object-fit: contain;
+        z-index: 2;
+    }
+
+    .inDeveloping {
+        width: 100%;
+        height: 100%;
+        background-color: var(--orange);
+        padding: 15px 5px;
+    }
+
+
+    .textWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        span {
+            line-height: 115%;
+        }
+
+        .name {
+            color: var(--orange);
+        }
+    }
+
+    @media (max-width: 1440px) {
+        .card {
+            .imgWrapper {
+                height: 60vh;
+            }
+        }
+    }
+
+    @media (max-width: 1200px) {
+        .card {
+            flex: 1 0 100%;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .card {
+            .imgWrapper {
+                img {
+                    width: 95%;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .card {
+            flex: 0 0 89%;
+            height: 73vh;
+        }
+    }
+}

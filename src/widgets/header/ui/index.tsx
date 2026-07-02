@@ -3,7 +3,7 @@ import Link from "next/link";
 import Logo from "@/shared/icons/Logo.svg";
 import { forwardRef, ForwardedRef, useState } from "react";
 import Magnetic from "@/shared/ui/magnetic";
-import NavBurger from "@/widgets/navBurger/ui";
+import NavBurger from "@/widgets/nav-burger/ui";
 import { AnimatePresence } from "framer-motion";
 
 const Header = forwardRef(function Index(

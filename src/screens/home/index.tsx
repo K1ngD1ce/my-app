@@ -1,25 +1,25 @@
 "use client";
 
-import Work from "@/features/work/ui";
-import Intro from "@/features/intro/ui";
-import About from "@/features/about/ui";
+import Work from "@/widgets/work-block/ui";
+import Intro from "@/widgets/intro-block/ui";
+import About from "@/widgets/about-block/ui";
 import Header from "@/widgets/header/ui";
 import Cursor from "@/shared/ui/stikyCursor/ui";
 import Footer from "@/widgets/footer/ui";
 import Preloader from "@/shared/ui/preloader/ui/";
-import IntermediateBlock from "@/features/intermediateBlock/ui";
+import IntermediateBlock from "@/widgets/intermediate-block/ui";
 
+import { gsap } from "gsap";
+import { finishLoading } from "@/shared/ui/preloader/model/loaderSlice";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
-import { finishLoading } from "@/shared/ui/preloader/model/loaderSlice";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function HomePage() {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((state) => state.preloader.isLoading);
-  const stickyElement = useRef<HTMLElement>(null);
+  const stickyElement = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);

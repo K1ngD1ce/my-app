@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useRef, useCallback } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import AnimatedText from "@/shared/ui/animatedText/AnimatedText";
 import cls from "./style.module.scss";
+import gsap from "gsap";
+import WorkCard from "@/entities/work-block-card/ui";
+import AnimatedText from "@/shared/ui/animatedText/AnimatedText";
+
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGetWorksQuery } from "@/app/store/mockApi";
-import Link from "next/link";
-import Image from "next/image";
+import { useEffect, useRef, useCallback } from "react";
 
 export default function Work() {
   const { data, isLoading, error } = useGetWorksQuery();
@@ -90,66 +90,9 @@ export default function Work() {
         </h2>
 
         <div className={cls.cardsWrapper} ref={cardsWrapperRef}>
-          {data?.works.map((work) => {
-            const cardContent = (
-              <>
-                <div className={cls.imgWrapper}>
-                  {work.img ? (
-                    <Image
-                      src={work.img}
-                      alt={work.name}
-                      width={2560}
-                      height={1440}
-                      priority={work.id <= 2}
-                      loading={work.id <= 2 ? "eager" : "lazy"}
-                    />
-                  ) : (
-                    <div className={cls.inDeveloping}>
-                      <h2>Project0{work.id}</h2>
-                    </div>
-                  )}
-                  {work.background_card && (
-                    <Image
-                      className={cls.backgroundCard}
-                      src={work.background_card}
-                      alt={`background-${work.name}`}
-                      width={2560}
-                      height={1440}
-                      loading="lazy"
-                    />
-                  )}
-                </div>
-                <div className={cls.textWrapper}>
-                  {work.description && <span>{work.description}</span>}
-                  <span className={cls.name}>( {work.name} )</span>
-                </div>
-              </>
-            );
-
-            return work.img ? (
-              <Link
-                href={work.href}
-                key={work.id}
-                className={cls.card}
-                data-cursor="interactive"
-                target="_blank"
-                onMouseEnter={(e) => {
-                  document.dispatchEvent(
-                    new MouseEvent("mousemove", {
-                      clientX: e.clientX,
-                      clientY: e.clientY,
-                    }),
-                  );
-                }}
-              >
-                {cardContent}
-              </Link>
-            ) : (
-              <div key={work.id} className={cls.card}>
-                {cardContent}
-              </div>
-            );
-          })}
+          {data?.works.map((work) => (
+            <WorkCard key={work.id} work={work} />
+          ))}
         </div>
       </div>
     </section>
